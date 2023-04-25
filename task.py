@@ -19,26 +19,29 @@ CREATE TABLE IF NOT EXISTS clients(
 # Завдання 2. 
 # - Створи SQL-запити, кожен з яких буде додавати нового клієнта у БД: ('Bill', 1000), ('Bob', 500), ('Anna', 2000).
 
-#! list_client = [('Bill', 1000), ('Bob', 500), ('Anna', 2000)]
-#! cur.executemany("""INSERT INTO clients(name, money_balance) VALUES(?, ?)""", list_client)
+list_client = [('Bill', 1000), ('Bob', 500), ('Anna', 2000)]
+cur.executemany("""INSERT INTO clients(name, money_balance) VALUES(?, ?)""", list_client)
 
 # Завдання 3.
 # - Створи запит, що отримає клієнта з id 1
 
-#! cur.execute("SELECT * FROM clients WHERE id = 1")
-#! print(cur.fetchone())
+cur.execute("SELECT * FROM clients WHERE id = 1")
+print(cur.fetchone())
 # - Створи запит, що отримає усіх клієнтів
-#! cur.execute("SELECT * FROM clients")
-#! print(cur.fetchall())
+cur.execute("SELECT * FROM clients")
+#!print(cur.fetchall())
 # - Створи запит, що отримає уісх клієнтів, баланс яких більше або дорівнює 700
 
 cur.execute("SELECT * FROM clients WHERE money_balance >= 700")
-print(cur.fetchall())
 
 
 # Завдання 4.
 # - Створи запит, що змінить ім‘я клієнта з id 1 на Billy
 
+cur.execute("SELECT * FROM clients WHERE id = 1")
+cur.execute("UPDATE clients SET name = ? WHERE id = ?", ('Billy', 1))
 # Завдання 5.
 # - створи запит, ща видалить усіх усіх клієнтів, баланс яких менше або дорівнює 1000
+cur.execute("DELETE FROM clients WHERE money_balance <= 1000")
+
 conn.commit()
